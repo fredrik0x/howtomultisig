@@ -195,4 +195,4 @@ The environment variables in your project settings should be set to:
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
