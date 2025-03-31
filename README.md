@@ -99,6 +99,7 @@ CREATE TABLE multisig_reports (
   profile TEXT NOT NULL,
   reviewer TEXT,
   transaction_hash TEXT,
+  checklist_version TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
   -- Total row size constraint: 5KB (5120 bytes)
   CONSTRAINT multisig_row_size_limit CHECK (
@@ -107,7 +108,8 @@ CREATE TABLE multisig_reports (
     octet_length(completeditems::text) +
     octet_length(profile) +
     octet_length(COALESCE(reviewer, '')) +
-    octet_length(COALESCE(transaction_hash, '')) <= 5120
+    octet_length(COALESCE(transaction_hash, '')) +
+    octet_length(COALESCE(checklist_version, '')) <= 5120
   )
 );
 
@@ -145,11 +147,13 @@ CREATE TABLE user_checklists (
   user_id UUID PRIMARY KEY,
   completeditems TEXT[] DEFAULT '{}',
   profile TEXT DEFAULT 'large',
+  checklist_version TEXT,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
   -- Total row size constraint: 5KB (5120 bytes)
   CONSTRAINT user_checklist_row_size_limit CHECK (
     octet_length(array_to_string(completeditems, ',')) +
-    octet_length(profile) <= 5120
+    octet_length(profile) +
+    octet_length(COALESCE(checklist_version, '')) <= 5120
   )
 );
 

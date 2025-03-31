@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, AlertTriangle, Printer, Link, EyeOff, Loader2, LogIn, LogOut, Mail } from 'lucide-react';
+import { Menu, X, Github, AlertTriangle, Printer, Link, EyeOff, Loader2, LogIn, LogOut, Mail, Info } from 'lucide-react';
+import { currentVersion } from '@/lib/checklistData';
 import { Button } from '@/components/ui/button';
 import { sections } from '@/lib/checklistData';
 import { useChecklist } from '@/context/ChecklistContext';
@@ -104,13 +105,14 @@ const NavBar: React.FC = () => {
       const completedItemsData = localStorage.getItem('multisig-completed-items');
       const profileData = localStorage.getItem('multisig-threat-profile');
       
-      // Create a report in supabase
+      // Create a report in supabase (including version information)
       const reportId = await createReport({
         name: multisigName,
         completedItems: completedItemsData ? JSON.parse(completedItemsData) : [],
         profile: profileData || 'small',
         reviewer: shareReviewer,
-        transactionHash: shareTransactionHash
+        transactionHash: shareTransactionHash,
+        version: currentVersion.version
       });
       
       // Generate the shareable URL

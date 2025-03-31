@@ -114,6 +114,7 @@ export interface MultisigReport {
   created_at?: string; // Timestamp of when the report was created
   reviewer?: string; // Person who reviewed the checklist
   transaction_hash?: string; // Transaction hash for signer profile
+  checklist_version?: string; // Version of the checklist used for this report
 }
 
 // Function to create a new report
@@ -123,6 +124,7 @@ export async function createReport(data: {
   profile: string;
   reviewer?: string;
   transactionHash?: string;
+  version?: string; // Version is now optional parameter
 }) {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error('Supabase is not configured. Cannot create report.');
@@ -139,7 +141,8 @@ export async function createReport(data: {
         completeditems: data.completedItems,
         profile: data.profile,
         reviewer: data.reviewer,
-        transaction_hash: data.transactionHash
+        transaction_hash: data.transactionHash,
+        checklist_version: data.version
       }
     ])
     .select()

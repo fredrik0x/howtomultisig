@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { checklistItems } from '@/lib/checklistData';
+import { checklistItems, currentVersion, versionHistory, ChecklistVersion } from '@/lib/checklistData';
 import { createReport, getReportById, saveUserChecklist, getUserChecklist, isSupabaseConfigured } from '@/lib/supabase';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
@@ -50,6 +50,8 @@ interface ChecklistContextType {
   setMultisigName: (value: string) => void;
   reportDetails: ReportDetails | null;
   setReportDetails: (details: ReportDetails) => void;
+  currentVersion: ChecklistVersion;
+  versionHistory: ChecklistVersion[];
 }
 
 const ChecklistContext = createContext<ChecklistContextType | undefined>(undefined);
@@ -461,6 +463,8 @@ export const ChecklistProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setMultisigName,
         reportDetails,
         setReportDetails,
+        currentVersion,
+        versionHistory
       }}
     >
       {children}

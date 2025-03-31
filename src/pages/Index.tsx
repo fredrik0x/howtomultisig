@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { BookOpen, ExternalLink, AlertTriangle, User, Wallet, Link } from 'lucide-react';
+import { BookOpen, ExternalLink, AlertTriangle, User, Wallet, Link, Tag } from 'lucide-react';
 import { ChecklistProvider } from '@/context/ChecklistContext';
-import { sections, resources } from '@/lib/checklistData';
+import { sections, resources, currentVersion } from '@/lib/checklistData';
 import Hero from '@/components/Hero';
 import NavBar from '@/components/NavBar';
 import Progress from '@/components/Progress';
@@ -116,6 +116,14 @@ const MainContent = () => {
                 <span>{criticalProgress.completed}/{criticalProgress.total} completed</span>
               </div>
             </div>
+
+            <div className="flex items-center">
+              <Tag className="w-5 h-5 mr-2" />
+              <div>
+                <span className="font-semibold">Checklist version: </span>
+                <span>{currentVersion.version}</span>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -193,6 +201,17 @@ const MainContent = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Tag className="w-4 h-4 mr-2" />
+                <span>Version {currentVersion.version}</span>
+                <span className="mx-2 text-muted-foreground/50">|</span>
+                <span>{currentVersion.releaseDate}</span>
+              </div>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <a href="https://github.com/fredriksvantes/howtomultisig" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                Contribute to the Multisig Security Checklist
+              </a>
             </div>
           </div>
         </div>

@@ -1,5 +1,24 @@
 import { ChecklistItem } from '@/context/ChecklistContext';
 
+// Version information
+export interface ChecklistVersion {
+  version: string;          // Semantic version (e.g., "1.0.0")
+  releaseDate: string;      // ISO date string
+  changes?: string[];       // Optional list of changes in this version
+}
+
+// Current version and version history
+export const currentVersion: ChecklistVersion = {
+  version: "1.0.0",
+  releaseDate: "2025-03-31",
+  changes: ["Initial release"]
+};
+
+export const versionHistory: ChecklistVersion[] = [
+  currentVersion
+  // Future versions will be added here when changes are made
+];
+
 // Checklist Sections
 export const sections = [
   {
