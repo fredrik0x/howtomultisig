@@ -1,0 +1,132 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    /* Nord light theme */
+    --background: 220 16% 95%;
+    --foreground: 222 16% 20%;
+    --card: 218 27% 92%;
+    --card-foreground: 222 16% 20%;
+    --popover: 218 27% 92%;
+    --popover-foreground: 222 16% 20%;
+    --primary: 213 32% 50%;
+    --primary-foreground: 218 27% 94%;
+    --secondary: 218 27% 88%;
+    --secondary-foreground: 222 16% 20%;
+    --muted: 218 27% 88%;
+    --muted-foreground: 220 16% 45%;
+    --accent: 210 34% 63%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 218 27% 85%;
+    --input: 218 27% 85%;
+    --ring: 213 32% 50%;
+    --radius: 0.5rem;
+
+    /* Theme colors (light) */
+    --sidebar-background: 218 27% 92%;
+    --sidebar-foreground: 222 16% 20%;
+    --sidebar-primary: 213 32% 50%;
+    --sidebar-primary-foreground: 218 27% 94%;
+    --sidebar-accent: 210 34% 63%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 218 27% 85%;
+    --sidebar-ring: 213 32% 50%;
+  }
+
+  .dark {
+    /* Nord dark theme with improved contrast */
+    --background: 220 16% 18%; /* nord-0 */
+    --foreground: 218 27% 94%; /* nord-6 */
+    --card: 222 16% 22%;       /* nord-1 */
+    --card-foreground: 218 27% 94%; /* nord-6 */
+    --popover: 222 16% 22%;    /* nord-1 */
+    --popover-foreground: 218 27% 94%; /* nord-6 */
+    --primary: 210 34% 70%;    /* nord-8 with more saturation */
+    --primary-foreground: 222 16% 18%; /* nord-0 */
+    --secondary: 220 16% 28%;  /* nord-2 */
+    --secondary-foreground: 218 27% 92%; /* nord-5 */
+    --muted: 220 16% 28%;      /* nord-2 */
+    --muted-foreground: 218 27% 85%; /* brighter version of nord-4 */
+    --accent: 213 32% 60%;     /* nord-10 with more saturation */
+    --accent-foreground: 218 27% 94%; /* nord-6 */
+    --destructive: 354 42% 65%; /* nord-11 with more saturation */
+    --destructive-foreground: 218 27% 94%; /* nord-6 */
+    --border: 220 16% 30%;     /* nord-2 with more contrast */
+    --input: 220 16% 28%;      /* nord-2 */
+    --ring: 210 34% 70%;       /* nord-8 with more saturation */
+
+    /* Theme colors (Nord dark with improved contrast) */
+    --sidebar-background: 222 16% 22%; /* nord-1 */
+    --sidebar-foreground: 218 27% 94%; /* nord-6 */
+    --sidebar-primary: 210 34% 70%;    /* nord-8 with more saturation */
+    --sidebar-primary-foreground: 222 16% 18%; /* nord-0 */
+    --sidebar-accent: 213 32% 60%;     /* nord-10 with more saturation */
+    --sidebar-accent-foreground: 218 27% 94%; /* nord-6 */
+    --sidebar-border: 220 16% 30%;     /* nord-2 with more contrast */
+    --sidebar-ring: 210 34% 70%;       /* nord-8 with more saturation */
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-lg border border-border bg-card/70 backdrop-blur-sm;
+  }
+
+  .section-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Print styles */
+  @media print {
+    @page {
+      size: A4;
+      margin: 1.5cm;
+    }
+    
+    body {
+      background-color: white !important;
+      color: black !important;
+    }
+    
+    .print\:hidden {
+      display: none !important;
+    }
+    
+    .print\:block {
+      display: block !important;
+    }
+    
+    .print\:m-0 {
+      margin: 0 !important;
+    }
+    
+    .print\:p-0 {
+      padding: 0 !important;
+    }
+    
+    .print\:text-black {
+      color: black !important;
+    }
+    
+    .print\:break-before-page {
+      break-before: page;
+    }
+  }
+}
