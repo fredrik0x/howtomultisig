@@ -18,6 +18,9 @@ export const versionHistory: ChecklistVersion[] = [
   version_1_0_0,
 ];
 
+// Export the current version (latest version in the history)
+export const currentVersion = versionHistory[0];
+
 // Checklist Sections
 export const sections = [
   {
