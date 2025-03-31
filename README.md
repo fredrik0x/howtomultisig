@@ -240,4 +240,4 @@ When a user shares a report, the current version is stored with that report. Whe
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
