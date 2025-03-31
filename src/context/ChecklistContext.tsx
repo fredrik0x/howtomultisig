@@ -16,6 +16,10 @@ export interface ChecklistItem {
   minimumProfile?: 'small' | 'medium' | 'large';
   whyImportant?: string;
   howToImplement?: string;
+  // Version-related properties
+  addedInVersion?: string;     // Version when item was added
+  modifiedInVersion?: string;  // Version when item was last modified
+  removedInVersion?: string;   // Version when item was removed (if applicable)
 }
 
 export type ThreatProfile = 'small' | 'medium' | 'large' | 'signer';

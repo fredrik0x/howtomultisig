@@ -7,16 +7,15 @@ export interface ChecklistVersion {
   changes?: string[];       // Optional list of changes in this version
 }
 
-// Current version and version history
-export const currentVersion: ChecklistVersion = {
+// Version and version history
+export const version_1_0_0: ChecklistVersion = {
   version: "1.0.0",
   releaseDate: "2025-03-31",
   changes: ["Initial release"]
 };
 
 export const versionHistory: ChecklistVersion[] = [
-  currentVersion
-  // Future versions will be added here when changes are made
+  version_1_0_0,
 ];
 
 // Checklist Sections

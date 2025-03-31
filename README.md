@@ -197,6 +197,47 @@ The environment variables in your project settings should be set to:
 - `VITE_SUPABASE_URL`: supabase project URL
 - `VITE_SUPABASE_ANON_KEY`: supabase anon key
 
+
+## Adding a New Checklist Version
+
+When making significant changes to the checklist items, it's important to increment the version number to maintain backward compatibility with shared checklists. Follow these steps to create a new version:
+
+1. **Update Version Information in `src/lib/checklistData.ts`**:
+   ```typescript
+   // Add a new version definition
+   const version_x_y_z: ChecklistVersion = {
+     version: "x.y.z",  // Follow semantic versioning
+     releaseDate: "YYYY-MM-DD",
+     changes: [
+       "Description of change 1",
+       "Description of change 2",
+       // ...
+     ]
+   };
+
+   // Update the version history array to include the new version
+   export const versionHistory: ChecklistVersion[] = [
+     version_1_0_0,
+     // ... previous versions
+     version_x_y_z  // Add the new version here
+   ];
+
+   // Set the current version to the new version
+   export const currentVersion: ChecklistVersion = version_x_y_z;
+   ```
+
+2. **When Modifying Checklist Items**:
+   - For new items, add `addedInVersion: "x.y.z"` to track when items were introduced
+   - For updated items, add `modifiedInVersion: "x.y.z"` to indicate changes
+   - For removed items, add `removedInVersion: "x.y.z"` instead of deleting them to maintain compatibility with older reports
+
+3. **Update Documentation**:
+   Add notes to the changelog in your release documentation highlighting the main changes in the new version.
+
+### Example: How Version Tracking Works
+
+When a user shares a report, the current version is stored with that report. When someone views a shared report from version 1.0.0, they'll see the checklist as it existed in that version, even if the current version is 2.0.0. This ensures that reports maintain their accurate history, while checklists can evolve with new security practices.
+
 ## License
 
 [MIT](LICENSE.md)
