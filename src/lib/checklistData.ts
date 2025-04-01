@@ -14,8 +14,20 @@ export const version_1_0_0: ChecklistVersion = {
   changes: ["Initial release"]
 };
 
+export const version_1_0_1: ChecklistVersion = {
+  version: "1.0.1",
+  releaseDate: "2025-04-01",
+  changes: ["Use a secure hardware wallet: Essential -> Critical",
+            "OS Security Updates: Essential -> Critical",
+            "Use a dedicated device for signing (Medium, Large treasuries): Recommended -> Critical",
+            "Use a separate OS for signing (Small Treasuries): Recommended -> Critical",
+            "Signer Role Diversity: Essential -> Recommended",]
+};
+
+
 export const versionHistory: ChecklistVersion[] = [
-  version_1_0_0,
+  version_1_0_1,
+  version_1_0_0,  
 ];
 
 // Export the current version (latest version in the history)
@@ -135,10 +147,44 @@ export const checklistItems: ChecklistItem[] = [
     section: 'signers',
     text: 'Use a secure hardware wallet',
     description: 'Use a reputable hardware wallet, stored securely but accessibly.',
-    priority: 'essential',
+    priority: 'critical',
     minimumProfile: 'small',
     whyImportant: 'Hardware wallets keep private keys offline, isolating them from malware and online threats that plague software wallets on internet-connected devices. They provide a secure environment for signing transactions.',
-    howToImplement: 'Purchase a hardware wallet directly from the manufacturer or authorized retailer (avoid marketplaces like Amazon/eBay due to tampering risk).\n- Recommended vendors: Ledger, Trezor, GridPlus, Keystone.\n- Verify device authenticity upon receipt.\n- Keep firmware updated.\n- Store the device securely (e.g., locked drawer, safe) when not in use, but ensure it remains reasonably accessible for timely signing when needed.'
+    howToImplement: 'Purchase a hardware wallet directly from the manufacturer or authorized retailer (avoid marketplaces like Amazon/eBay due to tampering risk).\n- Recommended vendors: Ledger, Trezor, GridPlus, Keystone.\n- Verify device authenticity upon receipt.\n- Keep firmware updated.\n- Store the device securely (e.g., locked drawer, safe) when not in use, but ensure it remains reasonably accessible for timely signing when needed.',
+    modifiedInVersion: '1.0.1'
+  },
+  {
+    id: 'os-security-updates',
+    section: 'signers',
+    text: 'Keep OS up-to-date with security patches',
+    description: 'Regularly update the OS of the device used for interacting with the multisig.',
+    priority: 'critical',
+    minimumProfile: 'small',
+    whyImportant: 'Operating system vulnerabilities are common attack vectors. Keeping the OS patched minimizes the risk of malware or exploits compromising the device used for creating or signing transactions, even if a hardware wallet is used.',
+    howToImplement: 'Enable automatic security updates for your OS (Windows, macOS, Linux).\n- Regularly check for and apply updates, especially before signing sessions.\n- Also keep browser and wallet interface software up-to-date.\n- For dedicated signing devices, ensure updates are applied when the device is brought online.',
+    modifiedInVersion: '1.0.1'
+  },
+  {
+    id: 'dedicated-device',
+    section: 'signers',
+    text: 'Use dedicated, hardened device for signing',
+    description: 'Use a dedicated, minimally exposed computer solely for signing.',
+    priority: 'critical',
+    minimumProfile: 'medium',
+    whyImportant: 'A general-purpose computer used for email, browsing, and messaging is constantly exposed to malware and phishing. A dedicated, hardened device dramatically reduces the attack surface for the critical signing process.',
+    howToImplement: 'Acquire a separate computer (laptop preferred for portability/isolation).\n- Use it *only* for connecting the hardware wallet and interacting with the Safe interface.\n- Do not use it for email, web browsing, chat, or any other activity.\n- Keep it air-gapped or minimally connected to the network only when needed.\n- Harden the OS (minimal software, firewall, encryption).\n- Procedure: Boot -> Connect -> Verify Tx -> Sign -> Disconnect -> Shutdown.',
+    modifiedInVersion: '1.0.1',
+  },
+  {
+    id: 'separate-os',
+    section: 'signers',
+    text: 'Use separate OS for signing',
+    description: 'Run an OS like Ubuntu from a secure USB with persistent storage setup for signing sessions. By enabling persistent storage, you can save your settings and files across sessions.',
+    priority: 'essential',
+    minimumProfile: 'small',
+    whyImportant: 'A dedicated OS is likely to provide a clean, malware-free environment for each signing session.',
+    howToImplement: 'Install onto a high-quality, encrypted USB drive (e.g., Kingston IronKey).\n- Boot the dedicated signing device from this USB drive *only* for signing sessions.\n- Connect to network -> Verify -> Sign -> Shutdown immediately.\n- Keep the USB drive physically secure.',
+    modifiedInVersion: '1.0.1',
   },
   {
     id: 'unique-address',
@@ -159,16 +205,6 @@ export const checklistItems: ChecklistItem[] = [
     minimumProfile: 'small',
     whyImportant: 'Using a signer address for other activities (DeFi, NFTs, airdrops) drastically increases its attack surface. Approving malicious contracts or interacting with compromised dApps could lead to the signer key being compromised, jeopardizing the multisig.',
     howToImplement: 'Strictly reserve the designated signer address for multisig operations only.\n- Do not use this address to interact with any other dApps, sign token approvals, or claim NFTs/airdrops.\n- Keep the address activity minimal and focused solely on Safe multisig signing.\n- Consider using an entirely separate hardware wallet for high-value multisig signing.'
-  },
-  {
-    id: 'os-security-updates',
-    section: 'signers',
-    text: 'Keep OS up-to-date with security patches',
-    description: 'Regularly update the OS of the device used for interacting with the multisig.',
-    priority: 'essential',
-    minimumProfile: 'small',
-    whyImportant: 'Operating system vulnerabilities are common attack vectors. Keeping the OS patched minimizes the risk of malware or exploits compromising the device used for creating or signing transactions, even if a hardware wallet is used.',
-    howToImplement: 'Enable automatic security updates for your OS (Windows, macOS, Linux).\n- Regularly check for and apply updates, especially before signing sessions.\n- Also keep browser and wallet interface software up-to-date.\n- For dedicated signing devices, ensure updates are applied when the device is brought online.'
   },
   {
     id: 'secure-communication',
@@ -220,7 +256,18 @@ export const checklistItems: ChecklistItem[] = [
     whyImportant: 'Unannounced absences can stall transactions if the remaining signers fall below the threshold. Advance notice allows the team to plan operations around absences or potentially expedite transactions before the signer becomes unavailable.',
     howToImplement: 'Provide advance notice (e.g., >72 hours when possible) via the secure channel about planned periods of unavailability (vacation, travel).\n- Specify the dates of unavailability.\n- Check for pending important transactions before leaving.\n- For unexpected unavailability, notify the team as soon as feasible.'
   },
-   {
+  {
+    id: 'signer-role-diversity',
+    section: 'signers',
+    text: 'Ensure diverse roles/backgrounds of signers',
+    description: 'Signers should ideally have different roles within the org and diverse backgrounds.',
+    priority: 'essential',
+    minimumProfile: 'medium',
+    whyImportant: 'Having signers with diverse roles and perspectives helps minimize the risk of collusion. If all signers belong to the same small team or share identical interests, it may be easier for them to conspire against the organization\'s interests.',
+    howToImplement: 'Select signers from different departments or functional areas (e.g., finance, engineering, legal, leadership).\n- Ensure signers are highly trusted individuals with proven track records and alignment with the organization\'s goals.\n- Consider background checks where appropriate for the level of trust required.',
+    modifiedInVersion: '1.0.1'
+  },
+  {
     id: 'hw-vendor-diversity',
     section: 'signers',
     text: 'Use diverse hardware wallet vendors',
@@ -241,16 +288,6 @@ export const checklistItems: ChecklistItem[] = [
     howToImplement: 'When selecting signers, consider their primary geographic location.\n- Aim for a distribution across different cities, states, or countries, where practical.\n- Avoid having a majority of signers residing in the same immediate area.'
   },
   {
-    id: 'signer-role-diversity',
-    section: 'signers',
-    text: 'Ensure diverse roles/backgrounds of signers',
-    description: 'Signers should ideally have different roles within the org and diverse backgrounds.',
-    priority: 'recommended',
-    minimumProfile: 'medium',
-    whyImportant: 'Having signers with diverse roles and perspectives helps minimize the risk of collusion. If all signers belong to the same small team or share identical interests, it may be easier for them to conspire against the organization\'s interests.',
-    howToImplement: 'Select signers from different departments or functional areas (e.g., finance, engineering, legal, leadership).\n- Ensure signers are highly trusted individuals with proven track records and alignment with the organization\'s goals.\n- Consider background checks where appropriate for the level of trust required.'
-  },
-  {
     id: 'avoid-group-travel',
     section: 'signers',
     text: 'Avoid all signers attending the same event',
@@ -269,26 +306,6 @@ export const checklistItems: ChecklistItem[] = [
     minimumProfile: 'large',
     whyImportant: 'A safe word, shared only physically and never digitally, provides a strong authentication factor against remote impersonation (e.g., deepfakes, compromised accounts) during critical communications like high-value transaction verification.',
     howToImplement: 'Agree on a unique, non-obvious safe word during an in-person meeting of signers.\n- NEVER record the safe word digitally (no email, chat, password managers).\n- Define specific scenarios where the safe word must be used (e.g., emergency calls, high-value transaction video verification).\n- Practice using it securely.'
-  },
-  {
-    id: 'dedicated-device',
-    section: 'signers',
-    text: 'Use dedicated, hardened device for signing',
-    description: 'Use a dedicated, minimally exposed computer solely for signing.',
-    priority: 'recommended',
-    minimumProfile: 'medium',
-    whyImportant: 'A general-purpose computer used for email, browsing, and messaging is constantly exposed to malware and phishing. A dedicated, hardened device dramatically reduces the attack surface for the critical signing process.',
-    howToImplement: 'Acquire a separate computer (laptop preferred for portability/isolation).\n- Use it *only* for connecting the hardware wallet and interacting with the Safe interface.\n- Do not use it for email, web browsing, chat, or any other activity.\n- Keep it air-gapped or minimally connected to the network only when needed.\n- Harden the OS (minimal software, firewall, encryption).\n- Procedure: Boot -> Connect -> Verify Tx -> Sign -> Disconnect -> Shutdown.'
-  },
-  {
-    id: 'separate-os',
-    section: 'signers',
-    text: 'Use separate OS for signing',
-    description: 'Run an OS like Ubuntu from a secure USB with persistent storage setup for signing sessions. By enabling persistent storage, you can save your settings and files across sessions.',
-    priority: 'recommended',
-    minimumProfile: 'small',
-    whyImportant: 'A dedicated OS is likely to provide a clean, malware-free environment for each signing session.',
-    howToImplement: 'Install onto a high-quality, encrypted USB drive (e.g., Kingston IronKey).\n- Boot the dedicated signing device from this USB drive *only* for signing sessions.\n- Connect to network -> Verify -> Sign -> Shutdown immediately.\n- Keep the USB drive physically secure.'
   },
   {
     id: 'quarterly-rehearsals',
