@@ -596,9 +596,5 @@ export const resources = [
   {
     title: 'Safe Transaction Hash Utility',
     url: 'https://github.com/pcaversaccio/safe-tx-hashes-util'
-  },
-  {
-    title: 'Safe Trusted Delegate Calls List',
-    url: 'https://github.com/safe-global/safe-transaction-service/blob/main/safe_transaction_service/history/tests/mocks/deployments_mock.py' // Note: This is a mock file, but indicates the *kind* of contracts typically trusted. A production list might be maintained elsewhere or internally.
   }
 ];
