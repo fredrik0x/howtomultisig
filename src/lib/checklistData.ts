@@ -78,7 +78,7 @@ export const checklistItems: ChecklistItem[] = [
     priority: 'critical',
     minimumProfile: 'small',
     whyImportant: 'Verifying the Safe multisig contract after deployment is critical to ensure that it is the genuine Safe contract and not a malicious one designed to steal funds. A compromised frontend during deployment could lead to deploying a malicious contract with hidden backdoors, unexpected initializers, or shadow signers.',
-    howToImplement: 'Compare the deployed contract bytecode with the official Safe contract bytecode.\n- Use Etherscan or similar block explorers to view the contract code and verify it matches the official Safe repository version intended.\n- Check the contract creation transaction to verify the initializer parameters used during deployment.\n- Check for any unexpected functions, permissions, or events.\n- Ensure there are no shadow signers added during initialization.\n- Consider using contract analysis tools (e.g., Dedaub, Slither) to decompile and analyze the deployed bytecode.'
+    howToImplement: 'Compare the deployed contract bytecode with the official Safe contract bytecode.\n- Use Etherscan or similar block explorers to view the contract code and verify it matches the official Safe contract bytecode.\n- Check the contract creation transaction to verify the initializer parameters used during deployment.\n- Check for any unexpected functions, permissions, or events.\n- Ensure there are no shadow signers added during initialization.'
   },
   {
     id: 'threshold-2-of-3',
