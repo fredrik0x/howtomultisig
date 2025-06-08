@@ -25,7 +25,7 @@ export const version_1_0_1: ChecklistVersion = {
 };
 
 export const version_1_0_2: ChecklistVersion = {
-  version: "1.0.1",
+  version: "1.0.2",
   releaseDate: "2025-06-08",
   changes: ["Include signing a message to verify ownership of address",
             "Improve safe word section",
