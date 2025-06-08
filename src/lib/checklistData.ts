@@ -24,10 +24,19 @@ export const version_1_0_1: ChecklistVersion = {
             "Signer Role Diversity: Essential -> Recommended",]
 };
 
+export const version_1_0_2: ChecklistVersion = {
+  version: "1.0.1",
+  releaseDate: "2025-06-08",
+  changes: ["Include signing a message to verify ownership of address",
+            "Improve safe word section",
+            "Improve Safe deployment verification information",]
+};
+
 
 export const versionHistory: ChecklistVersion[] = [
+  version_1_0_2,
   version_1_0_1,
-  version_1_0_0,  
+  version_1_0_0,
 ];
 
 // Export the current version (latest version in the history)
@@ -71,14 +80,14 @@ export const sections = [
 export const checklistItems: ChecklistItem[] = [
   // --- Safe Multisig Setup & Config Section
   {
-    id: 'verify-contract',
-    section: 'safe-multisig',
-    text: 'Verify deployed Safe contract',
-    description: 'Must be verified to ensure it is the correct, official Safe contract.',
-    priority: 'critical',
-    minimumProfile: 'small',
-    whyImportant: 'Verifying the Safe multisig contract after deployment is critical to ensure that it is the genuine Safe contract and not a malicious one designed to steal funds. A compromised frontend during deployment could lead to deploying a malicious contract with hidden backdoors, unexpected initializers, or shadow signers.',
-    howToImplement: 'Compare the deployed contract bytecode with the official Safe contract bytecode.\n- Use Etherscan or similar block explorers to view the contract code and verify it matches the official Safe contract bytecode.\n- Check the contract creation transaction to verify the initializer parameters used during deployment.\n- Check for any unexpected functions, permissions, or events.\n- Ensure there are no shadow signers added during initialization.'
+    "id": "verify-contract",
+    "section": "safe-multisig",
+    "text": "Verify deployed Safe contract",
+    "description": "Ensure the deployed contract is an official, unmodified Safe implementation.",
+    "priority": "critical",
+    "minimumProfile": "small",
+    "whyImportant": "Verifying the Safe contract prevents use of a malicious proxy or master copy that could compromise funds. Deployment through a compromised frontend may lead to unsafe initializations or unauthorized signers.",
+    "howToImplement": "In the Safe web interface, go to the transaction list and open the creation transaction:\n  - Confirm status is 'Success'.\n  - Verify the 'Creator' is a trusted address.\n  - 'Factory' should be a canonical Safe Proxy Factory, e.g. 0x76E2cFc1F5Fa8F6a5b3fC4c8F4788F0116861F9B.\n  - 'Mastercopy' must be one of the known Safe master copies (e.g. 0x34cfac646f301356faa8b21e94227e3583fe3f5f).\n\n In Safe Settings:\n  - Safe Details: Confirm Safe version is valid.\n  - Owners: All expected owners must be listed.\n  - Policies: Threshold and policies should match intended config.\n  - Advanced: Nonce should be 0 and no modules enabled.\n\n On Etherscan:\n  Open the creation transaction and confirm:\n    - Status is 'Success'.\n    - 'From' is your wallet.\n    - 'To' is a known proxy factory.\n  Under Logs:\n    - A ProxyCreation event is present.\n    - 'Proxy' address matches your Safe.\n\n Open the deployed Safe address on Etherscan:\n  - No transactions should be present initially.\n   Under 'Contract':\n    - Code must be verified.\n    - Bytecode must match canonical Safe contract creation bytecode.\n\n Once a transaction is executed:\n  - Mark contract as proxy.\n  - Use 'Read as Proxy':\n    - 'Implementation' must match the official master copy.\n    - 'getOwners' returns expected owners.\n    - 'getThreshold' returns correct threshold.\n    - 'getModules' returns none/null.\n    - 'nonce' shows completed transactions count.\n\nNote: For high risk, it is important to cross-verify with a trusted RPC endpoint."
   },
   {
     id: 'threshold-2-of-3',
@@ -122,6 +131,16 @@ export const checklistItems: ChecklistItem[] = [
   },
 
   // --- Signers Section ---
+  {
+    id: 'verify-signer',
+    section: 'signers',
+    text: 'Verify ability for signer to sign transactions',
+    description: 'A signer should sign a message to verify ownership of address.',
+    priority: 'critical',
+    minimumProfile: 'small',
+    whyImportant: 'A signer may accidentally provide an address they do not control, which could lead to inability to sign transactions',
+    howToImplement: 'Ask the signer to sign a message, and share the signed message privately with you so that you can verify that the message was signed successfully. There are services such as https://etherscan.io/verifiedSignatures which provide interfaces for this.'
+  },
   {
     id: 'discreet-signer',
     section: 'signers',
@@ -234,7 +253,7 @@ export const checklistItems: ChecklistItem[] = [
     priority: 'essential',
     minimumProfile: 'small',
     whyImportant: 'High-value transactions warrant additional verification steps beyond routine checks to mitigate the risk of sophisticated attacks or internal errors with significant consequences.',
-    howToImplement: 'Define thresholds for "high-value" or high-risk transactions.\n- Proposer sends a notification message to the signer group via the secure E2EE channel (e.g., Signal ephemeral chat).\n- For extremely high values or sensitive operations: Coordinate a brief video call with at least 3 signers attending.\n- During the call, verbally verify transaction details and confirm using a pre-shared "safe word" (that has *only* been shared in person and never digitally).'
+    howToImplement: 'Define thresholds for "high-value" or high-risk transactions.\n- Proposer sends a notification message to the signer group via the secure E2EE channel (e.g., Signal ephemeral chat).\n- For extremely high values or sensitive operations: Coordinate a video call.\n- During the call, verbally verify transaction details and confirm using a pre-agreed "safe word" (that has *only* been shared in person and never digitally) or a private discussion from a physical meeting that an attacker could not know about.'
   },
   {
     id: 'availability-48',
@@ -301,10 +320,10 @@ export const checklistItems: ChecklistItem[] = [
     id: 'use-safe-word',
     section: 'signers',
     text: 'Establish and use offline safe word',
-    description: 'Use a pre-agreed safe word (shared ONLY in person) for extra verification.',
+    description: 'Use a pre-agreed safe word (shared ONLY in person) or memory of a private discussion for extra verification.',
     priority: 'recommended',
     minimumProfile: 'large',
-    whyImportant: 'A safe word, shared only physically and never digitally, provides a strong authentication factor against remote impersonation (e.g., deepfakes, compromised accounts) during critical communications like high-value transaction verification.',
+    whyImportant: 'A safe word, shared only physically and never digitally, or a memory from a private in-person discussion provides a strong authentication factor against remote impersonation (e.g., deepfakes, compromised accounts) during critical communications like high-value transaction verification.',
     howToImplement: 'Agree on a unique, non-obvious safe word during an in-person meeting of signers.\n- NEVER record the safe word digitally (no email, chat, password managers).\n- Define specific scenarios where the safe word must be used (e.g., emergency calls, high-value transaction video verification).\n- Practice using it securely.'
   },
   {
@@ -586,6 +605,10 @@ export const checklistItems: ChecklistItem[] = [
 
 export const resources = [
   {
+    title: 'Verify safe creation',
+    url: 'https://help.safe.global/en/articles/40834-verify-safe-creation'
+  },
+  {
     title: 'Basic Transaction Checks',
     url: 'https://help.safe.global/en/articles/276343-how-to-perform-basic-transactions-checks-on-safe-wallet'
   },
@@ -596,5 +619,9 @@ export const resources = [
   {
     title: 'Safe Transaction Hash Utility',
     url: 'https://github.com/pcaversaccio/safe-tx-hashes-util'
-  }
+  },
+  {
+    title: 'Safe Utils',
+    url: 'https://safeutils.openzeppelin.com/'
+  },
 ];
