@@ -87,7 +87,8 @@ export const checklistItems: ChecklistItem[] = [
     "priority": "critical",
     "minimumProfile": "small",
     "whyImportant": "Verifying the Safe contract prevents use of a malicious proxy or master copy that could compromise funds. Deployment through a compromised frontend may lead to unsafe initializations or unauthorized signers.",
-    "howToImplement": "In the Safe web interface, go to the transaction list and open the creation transaction:\n  - Confirm status is 'Success'.\n  - Verify the 'Creator' is a trusted address.\n  - 'Factory' should be a canonical Safe Proxy Factory, e.g. 0x76E2cFc1F5Fa8F6a5b3fC4c8F4788F0116861F9B.\n  - 'Mastercopy' must be one of the known Safe master copies (e.g. 0x34cfac646f301356faa8b21e94227e3583fe3f5f).\n\n In Safe Settings:\n  - Safe Details: Confirm Safe version is valid.\n  - Owners: All expected owners must be listed.\n  - Policies: Threshold and policies should match intended config.\n  - Advanced: Nonce should be 0 and no modules enabled.\n\n On Etherscan:\n  Open the creation transaction and confirm:\n    - Status is 'Success'.\n    - 'From' is your wallet.\n    - 'To' is a known proxy factory.\n  Under Logs:\n    - A ProxyCreation event is present.\n    - 'Proxy' address matches your Safe.\n\n Open the deployed Safe address on Etherscan:\n  - No transactions should be present initially.\n   Under 'Contract':\n    - Code must be verified.\n    - Bytecode must match canonical Safe contract creation bytecode.\n\n Once a transaction is executed:\n  - Mark contract as proxy.\n  - Use 'Read as Proxy':\n    - 'Implementation' must match the official master copy.\n    - 'getOwners' returns expected owners.\n    - 'getThreshold' returns correct threshold.\n    - 'getModules' returns none/null.\n    - 'nonce' shows completed transactions count.\n\nNote: For high risk, it is important to cross-verify with a trusted RPC endpoint."
+    "howToImplement": "In the Safe web interface, go to the transaction list and open the creation transaction:\n  - Confirm status is 'Success'.\n  - Verify the 'Creator' is a trusted address.\n  - 'Factory' should be a canonical Safe Proxy Factory, e.g. 0x76E2cFc1F5Fa8F6a5b3fC4c8F4788F0116861F9B.\n  - 'Mastercopy' must be one of the known Safe master copies (e.g. 0x34cfac646f301356faa8b21e94227e3583fe3f5f).\n\n In Safe Settings:\n  - Safe Details: Confirm Safe version is valid.\n  - Owners: All expected owners must be listed.\n  - Policies: Threshold and policies should match intended config.\n  - Advanced: Nonce should be 0 and no modules enabled.\n\n On Etherscan:\n  Open the creation transaction and confirm:\n    - Status is 'Success'.\n    - 'From' is your wallet.\n    - 'To' is a known proxy factory.\n  Under Logs:\n    - A ProxyCreation event is present.\n    - 'Proxy' address matches your Safe.\n\n Open the deployed Safe address on Etherscan:\n  - No transactions should be present initially.\n   Under 'Contract':\n    - Code must be verified.\n    - Bytecode must match canonical Safe contract creation bytecode.\n\n Once a transaction is executed:\n  - Mark contract as proxy.\n  - Use 'Read as Proxy':\n    - 'Implementation' must match the official master copy.\n    - 'getOwners' returns expected owners.\n    - 'getThreshold' returns correct threshold.\n    - 'getModules' returns none/null.\n    - 'nonce' shows completed transactions count.\n\nNote: For high risk, it is important to cross-verify with a trusted RPC endpoint.",
+    modifiedInVersion: '1.0.2'
   },
   {
     id: 'threshold-2-of-3',
@@ -139,7 +140,8 @@ export const checklistItems: ChecklistItem[] = [
     priority: 'critical',
     minimumProfile: 'small',
     whyImportant: 'A signer may accidentally provide an address they do not control, which could lead to inability to sign transactions',
-    howToImplement: 'Ask the signer to sign a message, and share the signed message privately with you so that you can verify that the message was signed successfully. There are services such as https://etherscan.io/verifiedSignatures which provide interfaces for this.'
+    howToImplement: 'Ask the signer to sign a message, and share the signed message privately with you so that you can verify that the message was signed successfully. There are services such as https://etherscan.io/verifiedSignatures which provide interfaces for this.',
+    modifiedInVersion: '1.0.2'
   },
   {
     id: 'discreet-signer',
@@ -253,7 +255,8 @@ export const checklistItems: ChecklistItem[] = [
     priority: 'essential',
     minimumProfile: 'small',
     whyImportant: 'High-value transactions warrant additional verification steps beyond routine checks to mitigate the risk of sophisticated attacks or internal errors with significant consequences.',
-    howToImplement: 'Define thresholds for "high-value" or high-risk transactions.\n- Proposer sends a notification message to the signer group via the secure E2EE channel (e.g., Signal ephemeral chat).\n- For extremely high values or sensitive operations: Coordinate a video call.\n- During the call, verbally verify transaction details and confirm using a pre-agreed "safe word" (that has *only* been shared in person and never digitally) or a private discussion from a physical meeting that an attacker could not know about.'
+    howToImplement: 'Define thresholds for "high-value" or high-risk transactions.\n- Proposer sends a notification message to the signer group via the secure E2EE channel (e.g., Signal ephemeral chat).\n- For extremely high values or sensitive operations: Coordinate a video call.\n- During the call, verbally verify transaction details and confirm using a pre-agreed "safe word" (that has *only* been shared in person and never digitally) or a private discussion from a physical meeting that an attacker could not know about.',
+    modifiedInVersion: '1.0.2'
   },
   {
     id: 'availability-48',
@@ -324,7 +327,8 @@ export const checklistItems: ChecklistItem[] = [
     priority: 'recommended',
     minimumProfile: 'large',
     whyImportant: 'A safe word, shared only physically and never digitally, or a memory from a private in-person discussion provides a strong authentication factor against remote impersonation (e.g., deepfakes, compromised accounts) during critical communications like high-value transaction verification.',
-    howToImplement: 'Agree on a unique, non-obvious safe word during an in-person meeting of signers.\n- NEVER record the safe word digitally (no email, chat, password managers).\n- Define specific scenarios where the safe word must be used (e.g., emergency calls, high-value transaction video verification).\n- Practice using it securely.'
+    howToImplement: 'Agree on a unique, non-obvious safe word during an in-person meeting of signers.\n- NEVER record the safe word digitally (no email, chat, password managers).\n- Define specific scenarios where the safe word must be used (e.g., emergency calls, high-value transaction video verification).\n- Practice using it securely.',
+    modifiedInVersion: '1.0.2'
   },
   {
     id: 'quarterly-rehearsals',
