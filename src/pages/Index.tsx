@@ -209,7 +209,7 @@ const MainContent = () => {
               </div>
             </div>
             <div className="text-sm text-muted-foreground">
-              <a href="https://github.com/fredriksvantes/howtomultisig" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+              <a href="https://github.com/fredrik0x/howtomultisig" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
                 Contribute to the Multisig Security Checklist
               </a>
             </div>
