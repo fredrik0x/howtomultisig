@@ -344,7 +344,7 @@ const NavBar: React.FC = () => {
                 className="text-slate-900 dark:text-white"
               >
                 <a 
-                  href="https://github.com/fredriksvantes/howtomultisig/" 
+                  href="https://github.com/fredrik0x/howtomultisig/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center"
@@ -667,7 +667,7 @@ const NavBar: React.FC = () => {
               
               {/* Contribute button */}
               <a
-                href="https://github.com/fredriksvantes/howtomultisig/"
+                href="https://github.com/fredrik0x/howtomultisig/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-left px-3 py-2 rounded-md text-multisig-text hover:bg-multisig-purple/10 transition-colors"
